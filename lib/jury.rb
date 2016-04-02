@@ -12,7 +12,7 @@ class Jury
 	def cast_votes(finalists)
 		final_votes = {}
 		members.each do |member|
-			puts "Voter : #{member}"
+			puts "Voter : #{member.name.blue}"
 			finalist_selected = finalists.sample
 			final_votes[finalist_selected] ? final_votes[finalist_selected] += 1 : final_votes[finalist_selected] = 1
 		end
@@ -21,7 +21,7 @@ class Jury
 
 	def report_votes(final_votes)
 		final_votes.each do |finalist, votes|
-			puts "#{finalist} : #{votes}"
+			puts "#{finalist.name.green} : #{votes.to_s.yellow}"
 		end
 	end
 
