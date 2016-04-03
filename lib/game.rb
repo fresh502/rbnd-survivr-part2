@@ -18,10 +18,13 @@ class Game
 	end
 
 	def merge(merged_tribe_name)
-		Tribe.new({name: merged_tribe_name, members: @tribes[0].members + @tribes[1].members})
+		merge_tribe = Tribe.new({name: merged_tribe_name, members: @tribes[0].members + @tribes[1].members})
+		clear_tribes
+		add_tribe(merge_tribe)
+		return merge_tribe
 	end
 
 	def individual_immunity_challenge
-		immunity_challenge.members.pop
+		immune_member = @tribes[0].members.sample
 	end
 end

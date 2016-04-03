@@ -12,8 +12,9 @@ class Tribe
 	end
 
 	def tribal_council(options={})
-		member_voted_off = @members.pop
-		member_voted_off = @members.pop if member_voted_off == options[:immune]
+		members_voted_off = @members.reject { |member| member == options[:immune] }
+		member_voted_off = members_voted_off.sample
+		@members.delete_if { |member| member == member_voted_off }
 		return member_voted_off
 	end
 end

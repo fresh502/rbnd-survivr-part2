@@ -22,7 +22,7 @@ require_relative "jury"
 #This is where you will write your code for the three phases
 def phase_one
 	eliminated_contestants_count = 0
-	while eliminated_contestants_count < 8
+	8.times do
 		losing_tribe = @borneo.immunity_challenge
 		losing_tribe.tribal_council
 		eliminated_contestants_count += 1
@@ -33,8 +33,8 @@ end
 def phase_two
 	eliminated_contestants_count = 0
 	3.times do
-		eliminated_contestant = @borneo.individual_immunity_challenge
-		@merge_tribe.members.reject! { |member| member == eliminated_contestant }
+		immune_member = @borneo.individual_immunity_challenge
+		@merge_tribe.tribal_council(immune: immune_member)
 		eliminated_contestants_count += 1
 	end
 	return eliminated_contestants_count
@@ -42,7 +42,8 @@ end
 
 def phase_three
 	while @jury.members.length < 7
-		@jury.add_member(@merge_tribe.members.pop)
+		immune_member = @borneo.individual_immunity_challenge
+		@jury.add_member(@merge_tribe.tribal_council(immune: immune_member))
 	end
 	return @jury.members.length
 end
